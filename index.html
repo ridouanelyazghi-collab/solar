@@ -5,17 +5,17 @@
 <title>Zineb Solar</title>
 </head>
 
-<body style="text-align:center;font-family:Arial">
+<body style="text-align:center;font-family:Arial;background:#f2f2f2">
 
 <h2>☀️ Zineb Solar</h2>
 
-<input id="v" placeholder="كمية الماء"><br><br>
-<input id="t1" placeholder="درجة الحرارة البداية"><br><br>
-<input id="t2" placeholder="درجة الحرارة النهاية"><br><br>
-<input id="p" placeholder="قدرة اللوح"><br><br>
-<input id="pr" placeholder="ثمن اللوح"><br><br>
-<input id="e" placeholder="الكفاءة"><br><br>
-<input id="sun" placeholder="عدد ساعات الشمس"><br><br>
+<input id="v" placeholder="كمية الماء (L)"><br><br>
+<input id="t1" placeholder="درجة البداية"><br><br>
+<input id="t2" placeholder="درجة النهاية"><br><br>
+<input id="p" placeholder="قدرة اللوح (W)"><br><br>
+<input id="pr" placeholder="ثمن اللوح (dh)"><br><br>
+<input id="e" placeholder="الكفاءة (0.8 مثلا)"><br><br>
+<input id="sun" placeholder="ساعات الشمس"><br><br>
 
 <button onclick="calc()">احسب</button>
 
@@ -23,26 +23,40 @@
 
 <script>
 function calc(){
-let v = parseFloat(document.getElementById("v").value);
-let t1 = parseFloat(document.getElementById("t1").value);
-let t2 = parseFloat(document.getElementById("t2").value);
-let p = parseFloat(document.getElementById("p").value);
-let pr = parseFloat(document.getElementById("pr").value);
-let e = parseFloat(document.getElementById("e").value);
-let sun = parseFloat(document.getElementById("sun").value);
 
+let v = parseFloat(document.getElementById("v").value) || 0;
+let t1 = parseFloat(document.getElementById("t1").value) || 0;
+let t2 = parseFloat(document.getElementById("t2").value) || 0;
+let p = parseFloat(document.getElementById("p").value) || 0;
+let pr = parseFloat(document.getElementById("pr").value) || 0;
+let e = parseFloat(document.getElementById("e").value) || 0;
+let sun = parseFloat(document.getElementById("sun").value) || 0;
+
+if(v==0 || p==0 || sun==0){
+document.getElementById("r").innerHTML = "⚠️ عَمّر المعلومات مزيان";
+return;
+}
+
+// الحساب
 let Q = v * 4186 * (t2 - t1) / 3600000;
 let energy = (p / 1000) * sun * e;
+
+if(energy == 0){
+document.getElementById("r").innerHTML = "⚠️ الطاقة = 0";
+return;
+}
 
 let panels = Q / energy;
 let area = panels * 1.8;
 let total = panels * pr;
 
+// النتيجة
 document.getElementById("r").innerHTML =
-"⚡ " + Q.toFixed(2) + " kWh<br>" +
-"🔲 " + panels.toFixed(1) + " panels<br>" +
-"📏 " + area.toFixed(2) + " m²<br>" +
-"💰 " + total.toFixed(0) + " dh";
+"⚡ الطاقة: " + Q.toFixed(2) + " kWh<br>" +
+"🔲 عدد الألواح: " + panels.toFixed(1) + "<br>" +
+"📏 المساحة: " + area.toFixed(2) + " m²<br>" +
+"💰 الثمن: " + total.toFixed(0) + " dh";
+
 }
 </script>
 
