@@ -1,56 +1,25 @@
-}
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-<meta charset="UTF-8">
-<title>Zineb Solar</title>
-</head>
-
-<body style="text-align:center;font-family:Arial;background:#f2f2f2">
-
-<h2>☀️ Zineb Solar</h2>
-
-<input id="v" placeholder="كمية الماء"><br><br>
-<input id="t1" placeholder="الحرارة الباردة"><br><br>
-<input id="t2" placeholder="الحرارة المطلوبة"><br><br>
-<input id="p" placeholder="قدرة اللوح W"><br><br>
-<input id="pr" placeholder="ثمن اللوح DH"><br><br>
-<input id="e" placeholder="الكفاءة %"><br><br>
-
-<select id="c">
-<option value="5.8">الصويرة</option>
-<option value="5.5">فاس</option>
-<option value="5.2">الدار البيضاء</option>
-</select><br><br>
-
-<button onclick="calc()">احسب</button>
-
-<p id="r"></p>
-
 <script>
 function calc(){
-let v = document.getElementById("v").value;
-let t1 = document.getElementById("t1").value;
-let t2 = document.getElementById("t2").value;
-let p = document.getElementById("p").value;
-let pr = document.getElementById("pr").value;
-let e = document.getElementById("e").value/100;
-let sun = document.getElementById("c").value;
+let v = parseFloat(document.getElementById("v").value);
+let t1 = parseFloat(document.getElementById("t1").value);
+let t2 = parseFloat(document.getElementById("t2").value);
+let p = parseFloat(document.getElementById("p").value);
+let pr = parseFloat(document.getElementById("pr").value);
+let e = parseFloat(document.getElementById("e").value)/100;
+let sun = parseFloat(document.getElementById("c").value);
 
-let Q = v4186(t2-t1)/3600000;
-let energy = (p/1000)sune;
+// الحساب
+let Q = v * 4186 * (t2 - t1) / 3600000;
+let energy = (p / 1000) * sun * e;
 
-let panels = Q/energy;
-let area = panels1.8;
-let total = panelspr;
+let panels = Q / energy;
+let area = panels * 1.8;
+let total = panels * pr;
 
 document.getElementById("r").innerHTML =
-"⚡ "+Q.toFixed(2)+" kWh<br>"+
-"🔲 "+panels.toFixed(1)+" panels<br>"+
-"📐 "+area.toFixed(2)+" m²<br>"+
-"💰 "+total.toFixed(0)+" DH";
+"⚡ " + Q.toFixed(2) + " kWh<br>" +
+"🔲 " + panels.toFixed(1) + " panels<br>" +
+"📐 " + area.toFixed(2) + " m²<br>" +
+"💰 " + total.toFixed(0) + " DH";
 }
 </script>
-
-</body>
-</htm
